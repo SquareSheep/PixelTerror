@@ -92,6 +92,22 @@ abstract class MobFL extends Mob {
       strokeStyle[i].update();
     }
   }
+
+  void setMass(float mass) {
+    super.setMass(mass);
+    for (int i = 0 ; i < fillStyle.length ; i ++) {
+      fillStyle[i].setMass(mass);
+      strokeStyle[i].setMass(mass);
+    }
+  }
+
+  void setVMult(float vMult) {
+    super.setVMult(vMult);
+    for (int i = 0 ; i < fillStyle.length ; i ++) {
+      fillStyle[i].setVMult(vMult);
+      strokeStyle[i].setVMult(vMult);
+    }
+  }
 }
 
 abstract class MobF extends Mob {
@@ -119,9 +135,22 @@ abstract class MobF extends Mob {
     if (sca.x != 1) scale(sca.x);
   }
 
-  void setFillMass(float mass) {
+  void setMass(float mass) {
+    super.setMass(mass);
     fillStyle.setMass(mass);
     strokeStyle.setMass(mass);
+  }
+
+  void setVMult(float vMult) {
+    super.setVMult(vMult);
+    fillStyle.setVMult(vMult);
+    strokeStyle.setVMult(vMult);
+  }
+
+  void setIndex(float k) {
+    super.setIndex(k);
+    fillStyle.index = (int)k%binCount;
+    strokeStyle.index = (int)k%binCount;
   }
 }
 
@@ -135,7 +164,7 @@ abstract class Mob extends Entity {
   Point rang = new Point(0,0,0);
   Point rav = new Point(0,0,0);
   Point av = new Point(0,0,0);
-  float w = 0;
+  Point w;
   
   void setMass(float mass) {
     p.mass = mass;
@@ -146,6 +175,35 @@ abstract class Mob extends Entity {
     rv.mass = mass;
     rang.mass = mass;
     rav.mass = mass;
+    sca.mass = mass;
+    w.mass = mass;
+  }
+
+  void setVMult(float vMult) {
+    p.vMult = vMult;
+    pv.vMult = vMult;
+    ang.vMult = vMult;
+    av.vMult = vMult;
+    r.vMult = vMult;
+    rv.vMult = vMult;
+    rang.vMult = vMult;
+    rav.vMult = vMult;
+    sca.vMult = vMult;
+    w.vMult = vMult;
+  }
+
+  void setIndex(float k) {
+    int index = (int)k%binCount;
+    p.index = index;
+    pv.index = index;
+    ang.index = index;
+    av.index = index;
+    r.index = index;
+    rv.index = index;
+    rang.index = index;
+    rav.index = index;
+    sca.index = index;
+    w.index = index;
   }
 
   void update() {
@@ -160,6 +218,7 @@ abstract class Mob extends Entity {
     rav.update();
     av.update();
     sca.update();
+    w.update();
   }
 
   void setDraw() {
@@ -221,9 +280,9 @@ class Point {
   void update() {
     v.mult(vMult);
     if (index != -1) {
-      v.x += (P.x + pm.x * av[index] - p.x) / mass;
-      v.y += (P.y + pm.y * av[index] - p.y) / mass;
-      v.z += (P.z + pm.z * av[index] - p.z) / mass;
+      v.x += (P.x + pm.x * af[index] - p.x) / mass;
+      v.y += (P.y + pm.y * af[index] - p.y) / mass;
+      v.z += (P.z + pm.z * af[index] - p.z) / mass;
     } else {
       v.add(PVector.sub(P,p).div(mass));
     }
@@ -311,7 +370,7 @@ class SpringValue {
   void update() {
     v *= vMult;
     if (index != -1) {
-      v += (X + xm*av[index] - x)/mass;
+      v += (X + xm*af[index] - x)/mass;
     } else {
       v += (X - x)/mass;
     }
@@ -385,10 +444,10 @@ class IColor extends AColor {
 
   void update() {
     if (index != -1) {
-      r.X = rm * av[index] + rc;
-      g.X = gm * av[index] + gc;
-      b.X = bm * av[index] + bc;
-      a.X = am * av[index] + ac;
+      r.X = rm * af[index] + rc;
+      g.X = gm * af[index] + gc;
+      b.X = bm * af[index] + bc;
+      a.X = am * af[index] + ac;
     }
     r.update();
     g.update();
@@ -444,8 +503,8 @@ class IColor extends AColor {
     r.x = rc; g.x = gc; b.x = bc; a.x = ac;
   }
 
-  void reset(float rc, float gc, float gc, float ac) {
-    set(rc,gc,bc,ac);
+  void reset(float rc, float gc, float bc, float ac) {
+    setC(rc,gc,bc,ac);
     r.x = rc; g.x = gc; b.x = bc; a.x = ac;
   }
 

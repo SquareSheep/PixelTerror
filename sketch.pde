@@ -10,8 +10,8 @@ static float fillVMult = 0.5;
 static float fftThreshold = 1.5;
 static float fftPow = 1.8;
 static float fftAmp = 10;
-static float volumeGain = -10;
-static String songName = "../Music/onetwo.mp3";
+static float volumeGain = -40;
+static String songName = "../Music/enigma.mp3";
 
 IColor defaultFill = new IColor(222,125,222,255);
 IColor defaultStroke = new IColor(255,255,255,255);
@@ -23,4 +23,6 @@ void render() {
 void setSketch() {
 	front = new PVector(de*2,de,de*0.2);
 	back = new PVector(-de*2,-de,-de*2);
+
+	mobs.add(new GRect(0,0,0,50,200,50, 100, 0));
 }

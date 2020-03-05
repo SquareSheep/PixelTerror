@@ -24,7 +24,7 @@ class GTower extends Mob {
 		for (int i = 0 ; i < num ; i ++) {
 			tempW = min(random(wy/num*0.6,wy/num*1.4),sumW);
 			sumW -= tempW;
-			ar[i] = new GRect(x,0,y, wx,tempW,wz, dAmp,index);
+			ar[i] = new GRect(0,0,0, wx,tempW,wz, dAmp,index);
 		}
 	}
 
@@ -61,7 +61,7 @@ class GRect extends MobF {
 		this.ang = new Point();
 		this.dAmp = dAmp;
 		this.d = new Point();
-		this.d.mass = 2;
+		this.d.mass = 4;
 		this.d.vMult = 0.25;
 		setIndex(index);
 	}
@@ -82,14 +82,14 @@ class GRect extends MobF {
 			drawRect();
 			if (true) { //af[fillStyle.index] > 30 && af[fillStyle.index] > avg*threshold) {
 				noFill();
-				strokeWeight(af[fillStyle.index]*0.05);
-				stroke(fillStyle.r.x,0,0,fillStyle.a.x);
+				strokeWeight(af[fillStyle.index]*0.03+1.3);
+				stroke(255-fillStyle.r.x,0,0,fillStyle.a.x);
 				translate(random(d.p.x),random(d.p.y),random(d.p.z));
 				drawRect();
-				stroke(0,fillStyle.g.x,0,fillStyle.a.x);
+				stroke(0,255-fillStyle.g.x,0,fillStyle.a.x);
 				translate(random(d.p.x),random(d.p.y),random(d.p.z));
 				drawRect();
-				stroke(0,0,fillStyle.r.x,fillStyle.a.x);
+				stroke(0,0,255-fillStyle.b.x,fillStyle.a.x);
 				translate(random(d.p.x),random(d.p.y),random(d.p.z));
 				drawRect();
 

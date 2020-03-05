@@ -43,6 +43,7 @@ void setup() {
   textSize(de/10);
   rectMode(CENTER);
   textAlign(CENTER);
+  strokeCap(BEVEL);
 
   mim = new Minim(this);
   song = mim.loadFile(songName, 1024);

@@ -61,7 +61,7 @@ class GRect extends MobF {
 		this.ang = new Point();
 		this.dAmp = dAmp;
 		this.d = new Point();
-		this.d.mass = 4;
+		this.d.mass = 2;
 		this.d.vMult = 0.25;
 		setIndex(index);
 	}
@@ -82,7 +82,7 @@ class GRect extends MobF {
 			drawRect();
 			if (true) { //af[fillStyle.index] > 30 && af[fillStyle.index] > avg*threshold) {
 				noFill();
-				strokeWeight(af[fillStyle.index]*0.03+1.3);
+				strokeWeight(af[fillStyle.index]*0.05+1.5);
 				stroke(255-fillStyle.r.x,0,0,fillStyle.a.x);
 				translate(random(d.p.x),random(d.p.y),random(d.p.z));
 				drawRect();
